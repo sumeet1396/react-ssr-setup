@@ -1,8 +1,12 @@
 const path = require('path');
+const dotenv = require('dotenv');
+
+const envPath = path.resolve(__dirname, '.env'); 
+const envVariables = dotenv.config({ path: envPath }).parsed;
 
 const config = {
     target: "node",
-    mode: 'development',
+    mode: envVariables.MODE,
     entry: "./src/index.js",
     output: {
         filename: "bundle.js",
@@ -33,6 +37,9 @@ const config = {
                 },
             }
         ]
+    },
+    externals: {
+        express: 'express',
     },
 }
 
