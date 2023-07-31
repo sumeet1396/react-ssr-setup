@@ -6,12 +6,11 @@ const envPath = path.resolve(__dirname, '.env');
 const envVariables = dotenv.config({ path: envPath }).parsed;
 
 const config = {
-    target: "node",
     mode: envVariables.MODE,
-    entry: "./src/index.js",
+    entry: "./src/Client/client.js",
     output: {
         filename: "bundle.js",
-        path: path.resolve(__dirname,'build'),
+        path: path.resolve(__dirname,'public'),
     },
     resolve: {
         modules: [path.resolve(__dirname, "./src"), "node_modules"]
@@ -24,11 +23,6 @@ const config = {
                 use: {
                 loader: 'babel-loader',
                 options: {
-                    // presets: [
-                    //     'react', //for handling react code
-                    //     'stage-0', // for handling async code
-                    //     ['env', { targets: { browsers: ['last 2 versions'] } }] //code to work on latest 2 versions of all browsers
-                    // ],
                     presets: ["@babel/preset-env", "@babel/preset-react"],
                     plugins: [
                         "@babel/plugin-proposal-object-rest-spread",
@@ -39,7 +33,6 @@ const config = {
             }
         ]
     },
-    externals: [webpackNodeExternals()]
 }
 
 module.exports = config
